@@ -1,0 +1,64 @@
+#!/bin/bash
+# Raspberry Pi Wireless Hotspot Installation Script
+
+clear
+
+echo "======== Setting up Raspberry Pi as WiFi hotspot ========="
+
+read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " confirm
+
+if [[ $confirm =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+    clear
+    echo "Updating package lists"
+
+    apt-get -y -qq update
+
+    echo "Installing dependencies"
+
+    apt-get -y -qq install hostapd dnsmasq
+
+    # Disabling hostapd dnsmasq by deafult
+    sudo systemctl disable hostapd
+    sudo systemctl disable dnsmasq
+
+    echo "Config Files backed up"
+
+    ####################################################################
+    #    copy configs to relevant directories
+    ####################################################################
+
+    echo "Configuring interfaces"
+    sudo cp ./config/interfaces /etc/network
+
+    echo "Configuring hostapd"
+    sudo cp ./config/hostapd.conf /etc/hostapd
+    sudo cp ./config/hostapd /etc/default
+
+    echo "Configuring dnsmasq"
+    sudo cp ./config/dnsmasq.conf /etc/
+
+    echo "Configuring RC"
+    sudo cp ./config/rc.local /etc/
+
+    echo "================================================================"
+    echo "=================== Configuration complete! ===================="
+    echo "================================================================"
+
+    echo "+++++++++++++++++  REBOOTING in 10 SECONDS  ++++++++++++++++++++"
+    echo "++++++++++++++++++++++ CTL-C to cancel ++++++++++++++++++++++++"
+
+    sleep 10
+    reboot
+
+    exit 0
+
+#else
+ #   exit 1
+
+fi
+
+
+
+
+
