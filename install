@@ -7,7 +7,7 @@ echo "======== Setting up Raspberry Pi as WiFi hotspot ========="
 
 read -r -p "This script will make changes to your system which may break some applications and may require you to reimage your SD card. Are you sure that you wish to continue? [y/N] " confirm
 
-if [[ $confirm =~ ^([yY][eE][sS]|[yY])$ ]]
+if [[ "$confirm" =~ "^([yY][eE][sS]|[yY])$" ]]
 then
     clear
     echo "Updating package lists"
@@ -52,10 +52,6 @@ then
     reboot
 
     exit 0
-
-#else
- #   exit 1
-
 fi
 
 
