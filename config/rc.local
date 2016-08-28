@@ -26,6 +26,6 @@ echo " "
 
 # First get update the hostname.
 sudo bash /home/pi/di_update/Raspbian_For_Robots/upd_script/rc.sh
-sudo bash /home/pi/rpi-auto-spot/start.sh
+sudo bash /home/pi/rpi-auto-wifi/start.sh
 
 exit 0
